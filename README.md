@@ -1,7 +1,7 @@
 # Vector Database With ChromaDB
 
 <p align="center">
-  <img src="https://your-image-url-here.com/chromadb-logo.png" alt="ChromaDB Logo" width="200"/>
+  <img src="https://raw.githubusercontent.com/chroma-core/chroma/main/docs/chroma.svg" alt="ChromaDB Logo" width="200"/>
 </p>
 
 <div align="center">
@@ -22,7 +22,8 @@
   <a href="#contributing">Contributing</a> •
   <a href="#license">License</a>
 </p>
-=============================
+
+====================================================
 
 This repository contains the code for a Vector Database implementation using ChromaDB. It demonstrates modern data storage and retrieval techniques, optimized for high-dimensional vector data and similarity searches.
 
