@@ -28,37 +28,31 @@ This repository contains the code for a Vector Database implementation using Chr
 
 - **Language:** Python
 - **Vector Database:** ChromaDB
-- **Libraries:**
-  - **NumPy:** For efficient numerical operations on vectors.
-  - **Pandas:** For data manipulation and analysis.
-  - **Scikit-learn:** For additional machine learning utilities and metrics.
+- **Web Framework:** FastAPI
+- **Frontend:** React
+- **Build Tool:** Vite
+- **Type Checking:** TypeScript
+- **Package Management:** pip
+- **License:** MIT
 
 ---
 
 ## 📂 File Structure
 
 ```
-vector-database/
-├── src/
-│   ├── database.py
-│   ├── indexing.py
-│   ├── query.py
-│   └── utils.py
-├── tests/
-│   ├── test_database.py
-│   ├── test_indexing.py
-│   └── test_query.py
-├── data/
-│   └── sample_vectors.npy
-├── requirements.txt
-└── README.md
+backend/
+src/
+README.md
+LICENSE
 ```
 
 ## ⚙️ Installation and Setup
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.10+
+- Node.js
+- pnpm
 - pip
 
 ### Steps to Run
@@ -70,20 +64,23 @@ vector-database/
    cd vector-database-chromadb
    ```
 
-2. **Set up a virtual environment:**
+1. **Add the Files**
+   Add relevant files to ensure a workable frontend and backend.
+
+1. **Set up a virtual environment:**
 
    ```
    python -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
 
-3. **Install dependencies:**
+1. **Install dependencies:**
 
    ```
    pip install -r requirements.txt
    ```
 
-4. **Run the example script:**
+1. **Run the example script:**
    ```
    python src/example.py
    ```
