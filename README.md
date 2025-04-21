@@ -1,29 +1,14 @@
 # Vector Database With ChromaDB
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/chroma-core/chroma/main/docs/chroma.svg" alt="ChromaDB Logo" width="200"/>
-</p>
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
 
-<div align="center">
-  <a href="https://github.com/yourusername/vector-database-chromadb/stargazers"><img src="https://img.shields.io/github/stars/yourusername/vector-database-chromadb" alt="Stars Badge"/></a>
-  <a href="https://github.com/yourusername/vector-database-chromadb/network/members"><img src="https://img.shields.io/github/forks/yourusername/vector-database-chromadb" alt="Forks Badge"/></a>
-  <a href="https://github.com/yourusername/vector-database-chromadb/pulls"><img src="https://img.shields.io/github/issues-pr/yourusername/vector-database-chromadb" alt="Pull Requests Badge"/></a>
-  <a href="https://github.com/yourusername/vector-database-chromadb/issues"><img src="https://img.shields.io/github/issues/yourusername/vector-database-chromadb" alt="Issues Badge"/></a>
-  <a href="https://github.com/yourusername/vector-database-chromadb/blob/master/LICENSE"><img src="https://img.shields.io/github/license/yourusername/vector-database-chromadb" alt="License Badge"/></a>
-</div>
-
-<br />
-
-<p align="center">
-  <a href="#about">About</a> •
-  <a href="#features">Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#usage">Usage</a> •
-  <a href="#contributing">Contributing</a> •
-  <a href="#license">License</a>
-</p>
-
-====================================================
+---
 
 This repository contains the code for a Vector Database implementation using ChromaDB. It demonstrates modern data storage and retrieval techniques, optimized for high-dimensional vector data and similarity searches.
 
