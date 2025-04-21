@@ -1,0 +1,18 @@
+:root {
+  box-sizing: border-box;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  /* overscroll-behavior: none;
+  overflow-y: scroll; */
+}
+
+div {
+  box-sizing: border-box;
+}
