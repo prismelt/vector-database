@@ -8,20 +8,21 @@ async function get(id: number, prompt: string, n: number = 1) {
   const result = await response.json();
   console.log(result);
 
-  return result["ids"];
+  return result[0] as string[];
 }
 
-async function post(id: number, name: string, data: string) {
-  const response = await fetch(`${baseUrl}${id}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: name,
-      data: data,
-    }),
-  });
+async function post(id: number, name: string, file: File) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(
+    `${baseUrl}${id}?name=${encodeURIComponent(name)}`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
   const result = await response.json();
   console.log(result);
   return result;

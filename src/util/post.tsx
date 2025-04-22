@@ -1,5 +1,5 @@
 import styles from "../app.module.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import * as api from "../lib/api";
 
 interface groupType {
@@ -10,33 +10,49 @@ interface groupType {
 function renderPostForm(group: groupType) {
   const [id, setId] = useState<number>(group.is_admin ? 1 : group.group_id);
   const [name, setName] = useState("");
-  const [data, setData] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!(id && name && data)) {
+    if (!(id && name && file)) {
       setError("Please fill in all fields");
       setSuccess("");
       return;
     }
     try {
-      await api.post(id!, name, data);
+      await api.post(id!, name, file);
       setError("");
-      setSuccess("Data posted successfully!");
-      // Clear input fields
+      setSuccess(`File "${file.name}" uploaded successfully!`);
       setName("");
-      setData("");
-      // Reset id only if admin
+      setFile(null);
       if (group.is_admin) {
         setId(1);
       }
-      // Clear success message after 3 seconds
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
       setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
       setError("Error: " + err);
       setSuccess("");
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const selectedFile = e.target.files[0];
+      setFile(selectedFile);
+      setError(""); // Clear any previous errors
+    }
+  };
+
+  const handleReset = () => {
+    setFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
   };
 
@@ -70,16 +86,39 @@ function renderPostForm(group: groupType) {
             />
           </label>
           <label className={styles.label}>
-            Data
-            <textarea
-              value={data}
-              onChange={(e) => setData(e.target.value)}
-              className={styles.input}
-              placeholder="Enter data"
-            />
+            File
+            <div className={styles.fileInputContainer}>
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className={`${styles.input} ${styles.fileInput}`}
+                accept=".txt,.md,.json,.csv,.pdf"
+                ref={fileInputRef}
+                style={{
+                  color: "transparent",
+                  padding: "0.5rem",
+                  cursor: "pointer",
+                }}
+              />
+              {file && (
+                <div className={styles.fileInfo}>
+                  <span>{file.name}</span>
+                  <button
+                    type="button"
+                    onClick={handleReset}
+                    className={styles.resetButton}
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
+            </div>
+            <p className={styles.label}>
+              Accepted file types: .txt, .md, .json, .csv, .pdf
+            </p>
           </label>
           <button type="submit" className={styles.button}>
-            Post
+            Upload
           </button>
         </div>
         {error && <p className={styles.error}>{error}</p>}
