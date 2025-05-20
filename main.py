@@ -1,12 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, Form, UploadFile, HTTPException
 from typing import Optional
 from query import basic_query
 from insertion import add, new_database
-from pymilvus import MilvusClient
+from pymilvus import MilvusClient, __version__
 from parse import (
-    PostJsonSchema,
     pdf_to_string,
-    BaseSchema,
     generate_model,
     InformationSchema,
     get_ai_client,
@@ -26,8 +24,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+print(__version__)
 
-client = MilvusClient(url="http://localhost:19530")
+
+client = MilvusClient(host="localhost", port=19530)
 
 
 @app.get("/query/basic")
@@ -38,12 +38,11 @@ async def query(
     limit: int = 2,
 ):
     response = basic_query(client, collection_name, prompt, db_id=db_id, limit=limit)
-    print(response)
     return response
 
 
 @app.post("/query/ai")
-async def add_collection(request: InformationSchema):
+async def intelligent_query(request: InformationSchema):
     response_schema = request.response_schema
     model = generate_model(response_schema)
     prompt = request.prompt
@@ -51,31 +50,37 @@ async def add_collection(request: InformationSchema):
     db_id = request.db_id
 
     result = basic_query(client, collection_name, prompt, db_id=db_id, limit=1)
-
     print(result)
 
-    return result
-
-    # todo: implement this portion
-    # ai_client = get_ai_client()
-    # response = api.post(
-    #     ai_client,
-    #     prompt + result,
-    #     model,
-    # )
-    # return response
+    ai_client = get_ai_client()
+    response = api.post(
+        ai_client,
+        prompt + result,
+        model,
+    )
+    return response
 
 
 @app.post("/")
-async def add_document(request: PostJsonSchema):
-    if not client.has_collection(request.collection_name):
-        new_database(client, request.collection_name)
+async def add_document(
+    collection_name: str = Form(...),
+    document: UploadFile = File(...),
+    file_name: Optional[str] = Form(None),
+    db_id: Optional[int] = Form(None),
+):
+    print("Upload started")
+    if document.content_type != "application/pdf":
+        raise HTTPException(status_code=400, detail="Invalid file type")
+    if not client.has_collection(collection_name):
+        new_database(client, collection_name)
     add(
         client,
-        request.collection_name,
-        pdf_to_string(request.document),
-        file_name=request.file_name,
+        collection_name,
+        pdf_to_string(await document.read()),
+        file_name=file_name,
+        db_id=db_id,
     )
+    print("Upload successful")
     return {"status": "success"}
 
 

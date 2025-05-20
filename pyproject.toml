@@ -11,6 +11,8 @@ dependencies = [
     "pydantic>=2.11.4",
     "pymilvus[model]>=2.5.8",
     "pypdf2>=3.0.1",
+    "python-multipart>=0.0.20",
     "requests>=2.32.3",
+    "torch>=2.7.0",
     "uvicorn>=0.34.2",
 ]
